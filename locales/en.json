@@ -1,0 +1,12 @@
+{
+
+	"accueil" : "Home",
+	"vider" :  "Delete",
+	"adresse" : "Adress",
+	"nom" : "Last name",
+	"prénom" : "First name",
+	"téléphone" : "Phone Number",
+	"courriel" : "Email"
+
+
+}
