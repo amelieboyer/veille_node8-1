@@ -147,4 +147,35 @@ app.get('/vider', (req, res) => {
 	res.redirect('/adresse')
 })
 
+///////////////////////////////////////////////AJAX AJOUTER
+
+app.post('/ajax_ajouter', (req,res) => {
+
+	console.log('la route = /ajax_ajouter')
+   req.body._id = ObjectID(req.body._id)
+
+   db.collection('adresse').save(req.body, (err, result) => {
+   if (err) return console.log(err)
+       console.log('sauvegarder dans la BD')
+   res.send(JSON.stringify(req.body));
+   // res.status(204)
+   })
+
+})
+
+
+/////////////////////////////////////////////////AJAX MODIFIER
+
+app.post('/ajax_modifier', (req,res) => {
+
+	console.log('la route = /ajax_modifier')
+   req.body._id = ObjectID(req.body._id)
+
+   db.collection('adresse').save(req.body, (err, result) => {
+   if (err) return console.log(err)
+       console.log('sauvegarder dans la BD')
+   res.send(JSON.stringify(req.body));
+   // res.status(204)
+   })
+})
 
