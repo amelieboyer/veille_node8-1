@@ -30,7 +30,7 @@
         <td contenteditable='true'><%= elm.prenom %></td>
         <td contenteditable='true'><%= elm.telephone %></td>                
         <td contenteditable='true'><%= elm.courriel %></td>    
-        <td><a class="detruire" href="/detruire/<%= elm._id %>"><i class="fas fa-trash-alt" aria-hidden="true"></i></a></td>
+        <td><a class="detruire" href="#"><i class="fas fa-trash-alt" aria-hidden="true"></i></a></td>
         <td><a class='modifier' href="#"><i class="far fa-save" aria-hidden="true"></i></a></td>
     </tr>
     <% } %>
@@ -78,8 +78,6 @@
 
         let elmAjouter = document.getElementById('btnAjouter')
 
-        console.log(elmAjouter)
-
          elmAjouter.addEventListener('click', ()=>{
 
                      xhr = new XMLHttpRequest();
@@ -87,7 +85,7 @@
 
                     xhr.setRequestHeader('Content-type', 'application/json');
                     xhr.send();
-                    xhr.addEventListener("readystatechange", traiterRequest, false);
+                    xhr.addEventListener("readystatechange", traiterRequestAjout, false);
             
 
 
@@ -111,6 +109,7 @@
                     let courriel = elmTr.querySelector('td:nth-child(5)').innerHTML
 
                     data = {
+
                         "nom" : nom,
                         "prenom" : prenom,
                         "telephone" : telephone,
@@ -122,13 +121,34 @@
                     sData = JSON.stringify(data);
                     xhr.setRequestHeader('Content-type', 'application/json');
                     xhr.send(sData);
-                    xhr.addEventListener("readystatechange", traiterRequest, false);
+                    xhr.addEventListener("readystatechange", detruire, false);
                 })
 
 
             }
 
 
+        function detruire(e){
+
+            let elmTBODY = document.querySelector('.tableau')
+            let elmTR = document.querySelector('tr')
+
+            console.log(elmTBODY)
+            console.log(elmTR)
+
+             console.log("xhr.readyState = " + xhr.readyState)
+             console.log("xhr.status = " + xhr.status)
+
+             if(xhr.readyState == 4 && xhr.status == 200)
+             {
+                 //console.log('ajax fonctionne')
+                 var response = JSON.parse(xhr.responseText);
+                 //console.log(response)
+                 //console.log("response._id = " + response._id)
+                 //console.log(xhr.responseText);
+             }
+        
+        }
 
 
 
@@ -139,21 +159,48 @@
 
              if(xhr.readyState == 4 && xhr.status == 200)
              {
-                 console.log('ajax fonctionne')
+                 //console.log('ajax fonctionne')
                  var response = JSON.parse(xhr.responseText);
-                 console.log(response)
-                 console.log("response._id = " + response._id)
-                 console.log(xhr.responseText);
+                 //console.log(response)
+                 //console.log("response._id = " + response._id)
+                 //console.log(xhr.responseText);
 
             // elmLigne.style.backgroundColor = "#0f0"
              }
         }
 
-        function traiterRequestModif(e){
+        function traiterRequestAjout(e){
 
+            let elmTr = document.createElement('tr')
+            let monTableau = document.getElementsByClassName("tableau")[0];
 
+             //console.log("xhr.readyState = " + xhr.readyState)
+             //console.log("xhr.status = " + xhr.status)
 
-            
+             if(xhr.readyState == 4 && xhr.status == 200)
+             {
+                //console.log('ajax fonctionne')
+                 var response = JSON.parse(xhr.responseText);
+                 //console.log(response)
+                 //console.log("response._id = " + response._id)
+                 //console.log(xhr.responseText);
+             
+            let sLigne = '<td>' + response._id + '</td>' + '<td contenteditable="true" placeholder="Nom"></td>' + '<td contenteditable="true" placeholder="Prénom"></td>' + '<td contenteditable="true" placeholder="Téléphone"></td>'
+              + '<td contenteditable="true" placeholder="Courriel"></td>'                        
+  
+            elmTr.innerHTML = sLigne
+            let elmTh = document.createElement('th')
+            elmTr.appendChild(elmTh)
+            elmTr.appendChild(elmTh)
+            monTableau.appendChild(elmTr)
+            let elmButton = document.createElement('button')
+            elmButton.id = response._id
+            elmButton.classList.add('detruire')
+            elmButton.innerHTML= '<i class="fas fa-trash-alt"></i>'
+
+            //console.log(response)
+
+    }
         }
 
 

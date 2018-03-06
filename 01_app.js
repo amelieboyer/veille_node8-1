@@ -108,12 +108,13 @@ app.post('/ajax_modifier', (req, res) => {
 
 
 ////////////////////////////////////////  Route /detruire
-app.get('/ajax_detruire', (req, res) => {
+app.post('/ajax_detruire', (req, res) => {
  console.log('route /detruire')
  // console.log('util = ' + util.inspect(req.params));	
- var id = req.params.id
+ var id = req.body._id
+ console.log(req.body)
  console.log(id)
- db.collection('adresse').findOneAndDelete({"_id": ObjectID(req.params.id)}, (err, resultat) => {
+ db.collection('adresse').findOneAndDelete({"_id": ObjectID(id)}, (err, resultat) => {
 
 if (err) return console.log(err)
 res.send(JSON.stringify(req.body));
@@ -145,4 +146,3 @@ app.get('/vider', (req, res) => {
 		})
 	res.redirect('/adresse')
 })
-
