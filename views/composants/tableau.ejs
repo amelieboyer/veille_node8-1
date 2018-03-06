@@ -131,10 +131,7 @@
         function detruire(e){
 
             let elmTBODY = document.querySelector('.tableau')
-            let elmTR = document.querySelector('tr')
-
-            console.log(elmTBODY)
-            console.log(elmTR)
+            let elmTR = document.querySelectorAll('tr')
 
              console.log("xhr.readyState = " + xhr.readyState)
              console.log("xhr.status = " + xhr.status)
@@ -146,6 +143,21 @@
                  //console.log(response)
                  //console.log("response._id = " + response._id)
                  //console.log(xhr.responseText);
+
+                for(let i=0; i<elmTR.length; i++){
+
+                    if(elmTR[i].children[0].innerHTML == response._id){
+
+
+
+
+
+                    }
+
+
+
+                }
+
              }
         
         }
